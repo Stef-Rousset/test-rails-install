@@ -1,3 +1,18 @@
 <h1>Magasin <%= @shop.name %></h1>
 <h2>Horaires :</h2>
+<% @shop.schedules.each_with_index do |schedule, index|%>
+  <% if index == 0 %>
+    <p style="font-weight: bold">
+  <% else %>
+    <p>
+  <% end %><%= schedule.day %> <% if schedule.closed == true %>
+                            Fermé
+                           <% elsif schedule.midday_closing.present? %>
+                            <%= schedule.opening.strftime('%H:%M') %>-<%= schedule.midday_closing.strftime('%H:%M') %>, <%= schedule.midday_opening.strftime('%H:%M') %>-<%= schedule.closing.strftime('%H:%M') %>
+                           <% else %>
+                            <%= schedule.opening.strftime('%H:%M') %>-<%= schedule.closing.strftime('%H:%M') %>
+                           <% end %>
+    </p>
+<% end %>
+
 
