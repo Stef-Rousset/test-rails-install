@@ -1,0 +1,6 @@
+<h1>Liste des magasins</h1>
+<% @shops.each do |shop| %>
+  <h2><%= shop.name %></h2>
+  <p>Consulter les horaires <%= link_to "ici", shop_path(shop.id) %></p>
+<% end %>
+
