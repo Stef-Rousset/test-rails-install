@@ -6,6 +6,7 @@ class ShopsController < ApplicationController
   end
 
   def show
+    @schedules = Schedule.sort_schedules(@shop.schedules)
   end
 
   private

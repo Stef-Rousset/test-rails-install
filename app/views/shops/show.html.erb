@@ -1,6 +1,6 @@
 <h1>Magasin <%= @shop.name %></h1>
 <h2>Horaires :</h2>
-<% @shop.schedules.each_with_index do |schedule, index|%>
+<% @schedules.each_with_index do |schedule, index|%>
   <% if index == 0 %>
     <p style="font-weight: bold">
   <% else %>

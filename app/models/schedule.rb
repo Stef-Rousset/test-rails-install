@@ -9,9 +9,26 @@ class Schedule < ApplicationRecord
 
 
   #attribute :closed, :boolean, default: false
-  enum day: {lundi: 1, mardi: 2, mercredi: 3, jeudi: 4, vendredi: 5, samedi: 6, dimanche: 7}
+  enum day: {Sunday: 0, Monday: 1, Tuesday: 2, Wednesday: 3, Thursday: 4, Friday: 5, Saturday: 6}
 
   def open?
     closed == false
+  end
+
+  def self.sort_schedules(schedules)
+    current_day = Date.today.strftime('%A')
+    array = Date::DAYNAMES
+    begin_array = []
+    end_array = []
+    array.each_with_index do |day, index|
+      current_index = array.index(current_day)
+      if array.index(day) >= current_index
+        begin_array << day
+      elsif
+        end_array << day
+      end
+    end
+    result = begin_array + end_array
+    result.map!{|day| schedules.where(day: day)}.flatten
   end
 end
