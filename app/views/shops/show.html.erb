@@ -1,3 +1,25 @@
 <h1>Magasin <%= @shop.name %></h1>
 <h2>Horaires :</h2>
+<% if @schedules.present? %>
+  <% @schedules.each_with_index do |schedule, index|%>
+    <div style="display: flex; align-items: center">
+      <% if index == 0 %>
+        <p style="font-weight: bold">
+      <% else %>
+        <p>
+      <% end %><%= schedule.day %> <% if schedule.closed == true %>
+                                Fermé
+                               <% elsif schedule.midday_closing.present? %>
+                                <%= schedule.opening.strftime('%H:%M') %>-<%= schedule.midday_closing.strftime('%H:%M') %>, <%= schedule.midday_opening.strftime('%H:%M') %>-<%= schedule.closing.strftime('%H:%M') %>
+                               <% else %>
+                                <%= schedule.opening.strftime('%H:%M') %>-<%= schedule.closing.strftime('%H:%M') %>
+                               <% end %>
+        </p>
+        <%#= link_to "Modifier", edit_schedule_path(schedule), style: 'padding-left:10px' %>
+        <%#= link_to "Supprimer", schedule_path(schedule), method: :delete, data: {confirm: "Etes-vous sûr ?"},style: 'padding-left:10px' %>
+    </div>
+  <% end %>
+<% end %>
+
+
 
