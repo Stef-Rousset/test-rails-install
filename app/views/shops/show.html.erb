@@ -15,13 +15,11 @@
                                 <%= schedule.opening.strftime('%H:%M') %>-<%= schedule.closing.strftime('%H:%M') %>
                                <% end %>
         </p>
-        <%= link_to "Modifier", edit_schedule_path(schedule), style: 'padding-left:10px' %>
-        <%= link_to "Supprimer", schedule_path(schedule), method: :delete, data: {confirm: "Etes-vous sûr ?"},style: 'padding-left:10px' %>
+        <%#= link_to "Modifier", edit_schedule_path(schedule), style: 'padding-left:10px' %>
+        <%#= link_to "Supprimer", schedule_path(schedule), method: :delete, data: {confirm: "Etes-vous sûr ?"},style: 'padding-left:10px' %>
     </div>
   <% end %>
-<% else %>
-  <p>Ajouter des horaires :</p>
-    <%= link_to "Ajouter des horaires", new_shop_schedule_path(@shop) %>
 <% end %>
+
 
 

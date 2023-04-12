@@ -1,9 +1,13 @@
 class SchedulesController < ApplicationController
-  before_action :set_schedule, only: [:edit, :update, :destroy]
+  protect_from_forgery with: :null_session #deactivate CSRF protection to avoid "Can't verify CSRF token authenticit"
+  before_action :set_schedule, only: [:show, :update, :destroy]
 
-  def new
-    @shop = Shop.find(params[:shop_id])
-    @schedule = Schedule.new
+  def index
+    render json: Schedule.all.to_json
+  end
+
+  def show
+    render json: @schedule.to_json
   end
 
   def create
@@ -11,40 +15,32 @@ class SchedulesController < ApplicationController
     @shop = Shop.find(params[:shop_id])
     @schedule.shop = @shop
     if @schedule.save
-      redirect_to shop_path(@shop)
+      render json: @schedule.to_json, status: 200
     else
-      render :new
+      render json: "Schedule's creation has failed", status: 406
     end
-  end
-
-  def edit
-    @shop= Shop.find(@schedule.shop_id)
   end
 
   def update
     if @schedule.update(schedule_params)
-      respond_to do |format|
-        format.html { redirect_to shop_path(@schedule.shop) }
-        format.json { render json: @schedule.to_json, status: 200}
-      end
+      render json: @schedule.to_json, status: 200
     else
-      respond_to do |format|
-        format.html { render :edit }
-        format.json { render json: "Upate has failed", status: 406}
-      end
+      render json: "Schedule's update has failed", status: 406
     end
   end
 
   def destroy
-    @schedule = Schedule.find(params[:id])
-    @schedule.destroy
-    redirect_to shop_path(@schedule.shop)
+    if @schedule.destroy
+      render json: "Schedule has been destroyed", status: 200
+    else
+      render json: "Schedule's destruction has failed", status: 406
+    end
   end
 
   private
 
   def schedule_params
-    params.require(:schedule).permit(:day, :closed, :opening, :closing, :midday_opening, :midday_closing, :shop_id)
+    params.require(:schedule).permit(:day, :closed, :opening, :closing, :midday_opening, :midday_closing)
   end
 
   def set_schedule

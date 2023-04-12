@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   # root "articles#index"
   root "shops#index"
   resources :shops, only: [:index, :show] do
-    resources :schedules, only: [:show, :new, :create]
+    resources :schedules, only: [:show, :create, :update]
   end
-  resources :schedules, only: [:edit, :update, :destroy]
+  resources :schedules, only: [:index, :destroy]
 end
