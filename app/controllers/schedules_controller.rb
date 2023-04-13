@@ -3,11 +3,11 @@ class SchedulesController < ApplicationController
   before_action :set_schedule, only: [:show, :update, :destroy]
 
   def index
-    render json: Schedule.all.to_json
+    render json: Schedule.all
   end
 
   def show
-    render json: @schedule.to_json
+    render json: @schedule
   end
 
   def create
@@ -15,7 +15,7 @@ class SchedulesController < ApplicationController
     @shop = Shop.find(params[:shop_id])
     @schedule.shop = @shop
     if @schedule.save
-      render json: @schedule.to_json, status: 200
+      render json: @schedule, status: 200
     else
       render json: "Schedule's creation has failed", status: 406
     end
@@ -23,7 +23,7 @@ class SchedulesController < ApplicationController
 
   def update
     if @schedule.update(schedule_params)
-      render json: @schedule.to_json, status: 200
+      render json: @schedule, status: 200
     else
       render json: "Schedule's update has failed", status: 406
     end

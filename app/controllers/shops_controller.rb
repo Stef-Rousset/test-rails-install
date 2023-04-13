@@ -10,7 +10,7 @@ class ShopsController < ApplicationController
     if @schedules.present?
       respond_to do |format|
         format.html
-        format.json { render json: @schedules.to_json, status: 200 }
+        format.json { render json: @schedules, status: 200 }
       end
     else
       respond_to do |format|
