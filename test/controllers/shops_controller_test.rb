@@ -17,5 +17,4 @@ class ShopsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_equal Shop.first.schedules.to_json, @response.body
   end
-
 end
