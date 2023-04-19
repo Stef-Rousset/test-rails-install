@@ -4,3 +4,12 @@
   <p>Consulter les horaires <%= link_to "ici", shop_path(shop) %></p>
 <% end %>
 
+<h2>Nos magasins en image</h2>
+<div data-controller="slideshow">
+  <button data-action="click->slideshow#previous">previous</button>
+  <button data-action="click->slideshow#next">next</button>
+  <!-- click est l'event, slideshow le controller et next l'action -->
+  <div data-slideshow-target="slide"><%= image_tag "shop_one.jpg", width: 300 %></div>
+  <div data-slideshow-target="slide"><%= image_tag "shop_two.jpg", width: 300  %></div>
+  <div data-slideshow-target="slide"><%= image_tag "shop_three.jpg", width: 300  %></div>
+</div>
