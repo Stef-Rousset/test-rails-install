@@ -13,6 +13,7 @@ class SchedulesController < ApplicationController
   def create
     @schedule = Schedule.new(schedule_params)
     @shop = Shop.find(params[:shop_id])
+    #@schedule = @shop.schedules.create(schedule_params) si pas de traitement de l'echec de save
     @schedule.shop = @shop
     if @schedule.save
       render json: @schedule, status: 200
@@ -40,7 +41,7 @@ class SchedulesController < ApplicationController
   private
 
   def schedule_params
-    params.require(:schedule).permit(:day, :closed, :opening, :closing, :midday_opening, :midday_closing)
+    params.require(:schedule).permit(:day, :closed, :opening, :closing, :midday_opening, :midday_closing, :shop_id)
   end
 
   def set_schedule
