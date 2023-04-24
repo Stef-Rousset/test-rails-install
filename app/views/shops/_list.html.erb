@@ -1,0 +1,11 @@
+<div data-order-target="list">
+    <% shops.each do |shop| %>
+      <h2><%= shop.name %></h2>
+      <p>Consulter tous les horaires <%= link_to "ici", shop_path(shop) %></p>
+      <div data-controller="schedule" data-schedule-index-value="<%= shop.id%>" data-schedule-target="div" style="display: flex; justify-content: space-around; width: 400px">
+        <p>Voir l'horaire d'un jour en particulier</p>
+        <input data-schedule-target="day" type="text" placeholder="Monday">
+        <button data-action="click->schedule#show">valider</button>
+      </div>
+    <% end %>
+</div>

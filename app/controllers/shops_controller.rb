@@ -3,6 +3,15 @@ class ShopsController < ApplicationController
 
   def index
     @shops = Shop.all
+    if params[:query].present? && params[:query] == 'oui'
+        @shops = @shops.order(name: :asc)
+    end
+    respond_to do |format|
+      format.html #flow rails classique
+      format.text { render partial: 'list', locals: { shops: @shops }, formats: :html}
+      # il faut ajouter l'option formats pour que la partial au format html soit trouvée,
+      # sinon par défaut ça renvoit le même format que la requete cad text )
+    end
   end
 
   def show

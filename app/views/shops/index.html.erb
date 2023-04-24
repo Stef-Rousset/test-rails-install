@@ -1,6 +1,19 @@
 <h1>Liste des magasins</h1>
-<% @shops.each do |shop| %>
-  <h2><%= shop.name %></h2>
-  <p>Consulter les horaires <%= link_to "ici", shop_path(shop) %></p>
-<% end %>
+<div data-controller="order">
+  <%= form_with url: shops_path, method: :get, html: { data: { order_target: 'form' } } do |form| %>
+    <%= form.label :query, "Trier par ordre alphabétique" %>
+    <%= form.text_field :query, placeholder: "oui", value: params[:query], data: {order_target: 'searchInput'} %>
+    <%= form.submit "Search", data: { order_target: 'button', action: "click->order#update"} %>
+  <% end %>
+  <%= render 'list', shops: @shops %>
+</div>
+<h2>Nos magasins en image</h2>
+<div data-controller="slideshow">
+  <button data-action="click->slideshow#previous">previous</button>
+  <button data-action="click->slideshow#next">next</button>
+  <!-- click est l'event, slideshow le controller et next l'action -->
+  <div data-slideshow-target="slide"><%= image_tag "shop_one.jpg", width: 300 %></div>
+  <div data-slideshow-target="slide"><%= image_tag "shop_two.jpg", width: 300  %></div>
+  <div data-slideshow-target="slide"><%= image_tag "shop_three.jpg", width: 300  %></div>
+</div>
 
